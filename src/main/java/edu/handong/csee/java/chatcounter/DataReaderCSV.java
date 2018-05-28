@@ -53,7 +53,8 @@ public class DataReaderCSV extends DataReader{
 	       	messages.get(user).add(message);
 	    }
 		if(messages.containsKey(message.getID())) {
-	       	messages.get(user).add(message);
+			ArrayList<Message> m = messages.get(message.getID());
+        	m.add(message);
 	     }
 	}
 }

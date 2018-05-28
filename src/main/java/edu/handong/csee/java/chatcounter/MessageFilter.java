@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class MessageFilter{
 	static HashMap<String, ArrayList<Message>> messages = null;
+	
 	public MessageFilter(HashMap<String, ArrayList<Message>> messages) {
 		MessageFilter.messages = messages;
 	}
@@ -14,8 +15,9 @@ public class MessageFilter{
 			ArrayList<Message> arrayList = messages.get(keyID);
 			for (int i = 0; i < arrayList.size()-1; i++) {
 				for(int j = i+1; i < arrayList.size(); i++) {
-					if(compareTime(arrayList.get(i), arrayList.get(j)))
+					if(compareTime(arrayList.get(i), arrayList.get(j))) {
 						arrayList.remove(i);
+					}
 				}
 			}
 		}
@@ -38,6 +40,7 @@ public class MessageFilter{
 	private boolean compareMessage(Message message1, Message message2) {
 		String msge1 = message1.strMessage;
 		String msge2 = message2.strMessage;
+		//System.out.println(msge1 +" " + msge2);
 		if(msge1.equals(msge2))
 			return true;
 		return false;

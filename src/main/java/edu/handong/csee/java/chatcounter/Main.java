@@ -8,9 +8,9 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		HashMap<String, ArrayList<Message>> messages = new  HashMap<String, ArrayList<Message>>();
-		HashMap<String, Integer> result = new HashMap<String, Integer>();
+		ArrayList<String> result = new ArrayList<String>();
 		System.out.println("Hello World!");
-		String filepath = "C:\\Users\\imsuj\\Desktop\\java\\chat-java";	
+		String filepath = args[0];	
 		DataReader DR = new DataReader();
 		messages = DR.getData(filepath);
 		
@@ -18,10 +18,9 @@ public class Main {
 		messages = MF.MessageFilt(messages);
 		
 		MessageCounter MC = new MessageCounter(messages);
-		result = MC.messageCountSort(messages);
-		/*for(String keyID : result.keySet()) {
-			System.out.println(keyID+" " + result.get(keyID));
-		}*/
+		result = MC.messageCountSort();
+		//for(String line : result) 
+			//System.out.println(line);
 		
 		WriteCSV WC = new WriteCSV();
 		WC.createCSV(result);

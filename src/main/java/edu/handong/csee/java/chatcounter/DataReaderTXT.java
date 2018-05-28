@@ -31,6 +31,7 @@ public class DataReaderTXT extends DataReader {
 				Matcher m2 = r2.matcher(thisLine);
 				
 				if(m.find()||m1.find()){
+					//System.out.println(thisLine);
 					date = setDate(message, thisLine);
 				}if(m2.find()){
 					message = setMessage(thisLine, date);
@@ -51,7 +52,8 @@ public class DataReaderTXT extends DataReader {
         	messages.get(message.getID()).add(message);
         }
         if(messages.containsKey(user)) {
-        	messages.get(message.getID()).add(message);
+        	ArrayList<Message> m = messages.get(message.getID());
+        	m.add(message);
         }	
 	}
 
@@ -114,9 +116,9 @@ public class DataReaderTXT extends DataReader {
 			String day = String.format("%02d",Integer.parseInt(m.group(3)));
 			date = year+"-"+month+"-"+day+" ";
 		}if(m1.find()){
-			String year = m.group(3);
-			Months month = Months.valueOf(m.group(1));
-			String day = String.format("%02d",Integer.parseInt(m.group(2)));
+			Months month = Months.valueOf(m1.group(1));
+			String day = String.format("%02d",Integer.parseInt(m1.group(2)));
+			String year = m1.group(3);
 			date = year+"-"+month+"-"+day+" ";
 		}
 		return date;

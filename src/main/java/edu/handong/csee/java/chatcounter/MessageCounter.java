@@ -12,29 +12,26 @@ public class MessageCounter {
 		MessageCounter.messages = messages;
 	}
 	
-	public HashMap<String, Integer> messageCountSort(HashMap<String, ArrayList<Message>> message){
+	public ArrayList<String> messageCountSort(){
 		HashMap<String, Integer> result = messageCount(messages);
-		HashMap<String, Integer> sortResult = messageSort(result);
-		
-		return sortResult;
+		ArrayList<String> sortedResult = messageSort(result);
+		return sortedResult;
 	}
 	
-	private  HashMap<String, Integer> messageSort(HashMap<String, Integer> result) {
-		HashMap<String, Integer> sortResult = new HashMap<String, Integer>();
+	private  ArrayList<String> messageSort(HashMap<String, Integer> result) {
 		ArrayList<Integer> list = new ArrayList<Integer>(result.values());
+		ArrayList<String> sortedResult = new ArrayList<String>();
 		Collections.sort(list, Collections.reverseOrder());
 		for(int i =0; i<list.size(); i++) {
 			int count = list.get(i);
 			String name = getKeyFromValue(result, count);
-			sortResult.put(name, count);
-			System.out.println(name+" "+sortResult.get(name));
+			String line = name + "," + count;
+			sortedResult.add(line);
+			//System.out.println(line);
 			result.remove(name);
 		}
 		System.out.println("\n\n");
-		for(String name : sortResult.keySet()) {
-			System.out.println(name+" "+sortResult.get(name));
-		}
-		return sortResult;
+		return sortedResult;
 	}
 	
 	public String getKeyFromValue(HashMap<String,Integer> result, Integer count) {

@@ -29,7 +29,7 @@ public class DataReader {
 		File file = null;
 		for (int i = 0; i < files.length; i++){
 			file = files[i];
-			System.out.println("\nRead a file : " + file.getName());
+			System.out.println("Read a file : " + file.getName());
 			if(file.getName().endsWith(".csv"))
 				DataReaderCSV.getMessagesFromCSVFiles(file);
 			else
