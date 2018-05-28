@@ -19,7 +19,7 @@ public class DataReaderCSV extends DataReader{
 				String[] field = line.split(",");
 		         if(field.length<3)
 		         	continue;
-				message = setMessage(message, line, field);
+		         message = setMessage(message, line, field);
 				addToHashMap(message);
              }
         } catch (FileNotFoundException e){
@@ -40,14 +40,14 @@ public class DataReaderCSV extends DataReader{
          String date = field[0];
          String user = field[1];
          String strMessage = field[2];
+         strMessage = strMessage.replaceAll("\"", ""); 
          message = new Message(date, user, strMessage);
-         System.out.println(line);
-         System.out.println(message.getID());
          return message;
 	}
 
 	private static void addToHashMap(Message message) {
 		String user = message.getID();
+		user = user.replaceAll("\"", "");
 		if(!messages.containsKey(user)){
 	        messages.put(user, new ArrayList<Message>());
 	       	messages.get(user).add(message);
