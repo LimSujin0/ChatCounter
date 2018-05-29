@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DataReaderCSV extends DataReader{
 	public static void getMessagesFromCSVFiles(File file){
@@ -15,11 +16,18 @@ public class DataReaderCSV extends DataReader{
 		try {
         	br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF8"));
             String line = br.readLine();
-			while ((line = br.readLine()) != null)  {
+            String[] afield = null;
+            while ((line = br.readLine())!=null) {
 				String[] field = line.split(",");
-		         if(field.length<3)
-		         	continue;
-		         message = setMessage(message, line, field);
+				int a = 0;
+				if(field.length>=3)
+					afield = Arrays.copyOf(field, field.length);
+				if(field.length<3) 
+					afield[2] = afield[2]+line;
+					
+				
+		        message = setMessage(message, afield);
+		       // System.out.println(message.date + " " + message.strMessage + " " + message.user);
 				addToHashMap(message);
              }
         } catch (FileNotFoundException e){
@@ -36,10 +44,15 @@ public class DataReaderCSV extends DataReader{
         }
 	}
 
-	private static Message setMessage(Message message, String line, String[] field) {
+	private static Message setMessage(Message message, String[] field) {
          String date = field[0];
          String user = field[1];
          String strMessage = field[2];
+         if(field.length>3){
+        	 for(int i=3; i<field.length; i++) {
+        		 strMessage = strMessage+"," +field[i];
+        	 }
+         }
          strMessage = strMessage.replaceAll("\"", ""); 
          message = new Message(date, user, strMessage);
          return message;
@@ -51,10 +64,10 @@ public class DataReaderCSV extends DataReader{
 		if(!messages.containsKey(user)){
 	        messages.put(user, new ArrayList<Message>());
 	       	messages.get(user).add(message);
-	    }
-		if(messages.containsKey(message.getID())) {
-			ArrayList<Message> m = messages.get(message.getID());
-        	m.add(message);
+	       System.out.println(message.date + " " + message.strMessage + " " + message.user);
+	    }if(messages.containsKey(user)){
+			messages.get(user).add(message);
+        	System.out.println(message.date + " " + message.strMessage + " " + message.user);
 	     }
 	}
 }

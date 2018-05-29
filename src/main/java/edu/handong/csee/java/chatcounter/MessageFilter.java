@@ -12,11 +12,10 @@ public class MessageFilter{
 
 	public HashMap<String, ArrayList<Message>> MessageFilt(HashMap<String, ArrayList<Message>> messages) {
 		for(String keyID : messages.keySet()) {
-			ArrayList<Message> arrayList = messages.get(keyID);
-			for (int i = 0; i < arrayList.size()-1; i++) {
-				for(int j = i+1; i < arrayList.size(); i++) {
-					if(compareTime(arrayList.get(i), arrayList.get(j))) {
-						arrayList.remove(i);
+			for (int i = 0; i < messages.get(keyID).size()-1; i++) {
+				for(int j = i+1; j <messages.get(keyID).size(); j++) {
+					if(compareTime(messages.get(keyID).get(i), messages.get(keyID).get(j))) {
+						messages.get(keyID).remove(j);
 					}
 				}
 			}
@@ -27,12 +26,16 @@ public class MessageFilter{
 	private boolean compareTime(Message message1, Message message2) {
 		String date1 = message1.date;
 		String date2 = message2.date;
-		if(date1.length()==19 && date1.length()==date2.length()){//these date has hours, minutes and seconds
-			if(date1.equals(date2)) 
+		//System.out.println(date1+" "+ date2);
+		if(date1.length()>16 && date2.length()>16){//these date has hours, minutes and seconds
+			if(date1.equals(date2)) {
+				//System.out.println(date1+" "+ date2);
 				return compareMessage(message1, message2);
+			}
 		}else{
-			if(date1.substring(0,16).equals(date2.substring(0,16)))
+			if(date1.substring(0,16).equals(date2.substring(0,16))) {			
 				return compareMessage(message1, message2);
+			}
 		}
 		return false;
 	}
@@ -40,7 +43,6 @@ public class MessageFilter{
 	private boolean compareMessage(Message message1, Message message2) {
 		String msge1 = message1.strMessage;
 		String msge2 = message2.strMessage;
-		//System.out.println(msge1 +" " + msge2);
 		if(msge1.equals(msge2))
 			return true;
 		return false;

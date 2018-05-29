@@ -27,9 +27,9 @@ public class DataReader {
 	
 	public void readFiles(File[] files){//get String arraylist of the file	
 		File file = null;
-		for (int i = 0; i < files.length; i++){
+		for (int i = 0; i < files.length-1; i++){
 			file = files[i];
-			System.out.println("Read a file : " + file.getName());
+			System.out.println("\nRead a file : " + file.getName());
 			if(file.getName().endsWith(".csv"))
 				DataReaderCSV.getMessagesFromCSVFiles(file);
 			else
