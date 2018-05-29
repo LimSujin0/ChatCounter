@@ -16,28 +16,22 @@ public class DataReaderCSV extends DataReader{
 		try {
         	br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF8"));
             String line = br.readLine();
-            String[] afield = null;
-            while ((line = br.readLine())!=null) {
-				String[] field = line.split(",");
-				int a = 0;
-				if(field.length>=3)
-					afield = Arrays.copyOf(field, field.length);
-				if(field.length<3) 
-					afield[2] = afield[2]+line;
-					
-				
-		        message = setMessage(message, afield);
-		       // System.out.println(message.date + " " + message.strMessage + " " + message.user);
-				addToHashMap(message);
-             }
-        } catch (FileNotFoundException e){
+            String[] field = null;
+            while(((line = br.readLine())!=null)){
+            	field = line.split(",");
+            	if(field.length<3)
+            		continue;
+                message = setMessage(message, field);
+                addToHashMap(message); 
+            }
+		}catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }finally{
         	try {
-        		if (br != null)
-                    br.close();
+        		if(br != null)
+        			br.close();
         	}catch (IOException e) {
         		e.printStackTrace();
             }

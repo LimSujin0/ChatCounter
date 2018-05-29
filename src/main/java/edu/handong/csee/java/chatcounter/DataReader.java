@@ -12,7 +12,7 @@ public class DataReader {
 	public HashMap<String, ArrayList<Message>> getData(String strDir){
 		File myDir = getDirectory(strDir);
 		File[] files = getListOfFiles(myDir);
-		readFiles(files);	
+		readFiles(files);
 		return messages;
 	}
 	
