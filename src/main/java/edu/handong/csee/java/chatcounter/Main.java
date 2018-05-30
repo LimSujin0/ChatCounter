@@ -37,38 +37,39 @@ public class Main {
 		String inputpath = args[1];
 		String outputpath = args[3];
 		Options options = createOptions();
-		 if(parseOptions(options, args)) {
-			 if(help) {
-				 printHelp(options);
-				 return;
-			 }
-		 }
-		
+		if(parseOptions(options, args)) {
+			help = false;
+			if(help) {
+				printHelp(options);
+				return;
+			}
+		}
+
 		HashMap<String, ArrayList<Message>> messages = new  HashMap<String, ArrayList<Message>>();
 		ArrayList<String> result = new ArrayList<String>();
 		DataReader DR = new DataReader();
 		messages = DR.getData(inputpath);
-		
+
 		MessageFilter MF = new MessageFilter(messages);
 		messages = MF.MessageFilt(messages);
-		
+
 		MessageCounter MC = new MessageCounter(messages);
 		result = MC.messageCountSort();
-		
+
 		WriteCSV WC = new WriteCSV();
 		WC.createCSV(result, outputpath);
-		
+
 		System.out.println("finish!");
-//		for(Message m : messages.get("samer")) {
-//	        System.out.println(m.date+ m.user+m.strMessage);
-//	     }
+		//		for(Message m : messages.get("samer")) {
+		//	        System.out.println(m.date+ m.user+m.strMessage);
+		//	     }
 	}
 
 	private static boolean parseOptions(Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine cmd = parser.parse(options, args);
-			
+
 			inputPath = cmd.getOptionValue("i");
 			outputPath = cmd.getOptionValue("o");
 			help = cmd.hasOption("h");
@@ -84,7 +85,7 @@ public class Main {
 		String header = "Chat Counter Program";
 		String footer = "\nPlease report issues at https://github.com/LimSujin0/ChatCounter/Issues";
 		formatter.printHelp("ChatCounter", header, options, footer, true);
-		
+
 	}
 
 	private static Options createOptions() {
@@ -104,7 +105,7 @@ public class Main {
 		options.addOption(Option.builder("h").longOpt("help")
 				.desc("Help")
 				.build());
-				
+
 		return options;
 	}
 }

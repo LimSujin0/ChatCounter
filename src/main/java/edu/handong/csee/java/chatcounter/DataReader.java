@@ -29,16 +29,16 @@ public class DataReader {
 		readFiles(files);
 		return messages;
 	}
-	
+
 	private static File getDirectory(String fDir) {//get Directory and return File
 		File myDirectory = new File(fDir);
 		return myDirectory;
 	}
-	
+
 	private static File[] getListOfFiles(File dataDir) {//get list of files
 		return dataDir.listFiles();
 	}
-	
+
 	/**
 	 * This is a public method named reaFiles that get Files[] parameter
 	 * this method read all the files in that list of files

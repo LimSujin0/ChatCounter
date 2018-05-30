@@ -32,7 +32,7 @@ public class MessageFilter{
 				for(int j = i+1; j <messages.get(keyID).size(); j++) {
 					if(compareTime(messages.get(keyID).get(i), messages.get(keyID).get(j))) {
 						messages.get(keyID).remove(j--);
-						
+
 					}
 				}
 			}
@@ -64,5 +64,5 @@ public class MessageFilter{
 			return true;
 		return false;
 	}
-	
+
 }

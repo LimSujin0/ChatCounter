@@ -33,7 +33,7 @@ public class MessageCounter {
 		ArrayList<String> sortedResult = messageSort(result);
 		return sortedResult;
 	}
-	
+
 	private  ArrayList<String> messageSort(HashMap<String, Integer> result) {
 		ArrayList<Integer> list = new ArrayList<Integer>(result.values());
 		ArrayList<String> sortedResult = new ArrayList<String>();
@@ -49,15 +49,15 @@ public class MessageCounter {
 		System.out.println("\n\n");
 		return sortedResult;
 	}
-	
+
 	public String getKeyFromValue(HashMap<String,Integer> result, Integer count) {
-		  for (String name  : result.keySet()) {
-			  if (result.get(name).equals(count)) {
-				  return name;
-			  }
-		  }
-		  return null;
-	 }
+		for (String name  : result.keySet()) {
+			if (result.get(name).equals(count)) {
+				return name;
+			}
+		}
+		return null;
+	}
 
 	private HashMap<String, Integer> messageCount(HashMap<String, ArrayList<Message>> messages){
 		HashMap<String, Integer> result = new HashMap<String, Integer>();
@@ -69,5 +69,5 @@ public class MessageCounter {
 		}
 		return result;
 	}
-	
+
 }

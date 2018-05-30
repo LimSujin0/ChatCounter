@@ -39,7 +39,7 @@ public class DataReaderTXT extends DataReader {
 				String pattern2 = "\\[(.+)]\\s\\[..\\s([0-9]+):([0-9]+)\\]\\s(.+)";
 				Pattern r2 = Pattern.compile(pattern2);
 				Matcher m2 = r2.matcher(thisLine);
-				
+
 				if(m.find()||m1.find()){
 					System.out.println(thisLine);
 					date = setDate(message, thisLine);
@@ -54,17 +54,17 @@ public class DataReaderTXT extends DataReader {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void addToHashMap(Message message) {
 		String user = message.getID();
 		if(!messages.containsKey(user)){
-        	messages.put(user , new ArrayList<Message>());
-        	messages.get(message.getID()).add(message);
-        }
-        if(messages.containsKey(user)) {
-        	ArrayList<Message> m = messages.get(message.getID());
-        	m.add(message);
-        }	
+			messages.put(user , new ArrayList<Message>());
+			messages.get(message.getID()).add(message);
+		}
+		if(messages.containsKey(user)) {
+			ArrayList<Message> m = messages.get(message.getID());
+			m.add(message);
+		}	
 	}
 
 	private static Message setMessage(String line, String date) {
@@ -83,7 +83,7 @@ public class DataReaderTXT extends DataReader {
 			strMessage = strMessage.replaceAll("\"", "");
 			message = new Message(dateA, user, strMessage);	
 		}
-		
+
 		return message;
 	}
 
@@ -101,7 +101,7 @@ public class DataReaderTXT extends DataReader {
 			hour =String.format("%02d",Integer.parseInt(hour));
 			time = hour+":"+minute;
 		}
-		
+
 		if(minute.equals("PM")) {
 			ap =  String.valueOf(Integer.parseInt(ap)+12);
 			time = ap+":"+hour;
@@ -112,7 +112,7 @@ public class DataReaderTXT extends DataReader {
 			ap =String.format("%02d",Integer.parseInt(ap));
 			time = ap+":"+hour;
 		}
-		 
+
 		return time;
 	}
 

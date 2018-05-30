@@ -24,13 +24,13 @@ public class WriteCSV{
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "MS949");
 			BufferedWriter fw = new BufferedWriter(outputStreamWriter);
 			for(String line : result){
-		    	System.out.println(line);
-		    	fw.write(line+"\n");
-		    }
+				System.out.println(line);
+				fw.write(line+"\n");
+			}
 			fw.flush();
-		    fw.close();
+			fw.close();
 		}catch (Exception e) {
-		  e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
