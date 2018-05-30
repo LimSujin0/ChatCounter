@@ -66,13 +66,12 @@ public class DataReaderCSV extends DataReader{
 	private static void addToHashMap(Message message) {
 		String user = message.getID();
 		user = user.replaceAll("\"", "");
+		message.user = user;
 		if(!messages.containsKey(user)){
 	        messages.put(user, new ArrayList<Message>());
 	       	messages.get(user).add(message);
-	       System.out.println(message.date + " " + message.strMessage + " " + message.user);
 	    }if(messages.containsKey(user)){
 			messages.get(user).add(message);
-        	System.out.println(message.date + " " + message.strMessage + " " + message.user);
 	     }
 	}
 }

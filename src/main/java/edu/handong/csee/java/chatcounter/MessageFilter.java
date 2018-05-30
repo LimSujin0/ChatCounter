@@ -31,7 +31,7 @@ public class MessageFilter{
 			for (int i = 0; i < messages.get(keyID).size()-1; i++) {
 				for(int j = i+1; j <messages.get(keyID).size(); j++) {
 					if(compareTime(messages.get(keyID).get(i), messages.get(keyID).get(j))) {
-						messages.get(keyID).remove(j);
+						messages.get(keyID).remove(j--);
 						
 					}
 				}

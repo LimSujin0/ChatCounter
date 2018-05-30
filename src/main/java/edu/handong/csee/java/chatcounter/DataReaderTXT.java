@@ -36,16 +36,16 @@ public class DataReaderTXT extends DataReader {
 				String pattern1 = "-+\\s.+\\s(.+)\\s([0-9]+).\\s([0-9]+)\\s-+";
 				Pattern r1 = Pattern.compile(pattern1);
 				Matcher m1 = r1.matcher(thisLine);
-				String pattern2 = "\\[(.+)]\\s\\[..\\s([0-9]+:[0-9]+)\\]\\s(.+)";
+				String pattern2 = "\\[(.+)]\\s\\[..\\s([0-9]+):([0-9]+)\\]\\s(.+)";
 				Pattern r2 = Pattern.compile(pattern2);
 				Matcher m2 = r2.matcher(thisLine);
 				
 				if(m.find()||m1.find()){
-					//System.out.println(thisLine);
+					System.out.println(thisLine);
 					date = setDate(message, thisLine);
 				}if(m2.find()){
 					message = setMessage(thisLine, date);
-					//System.out.println(message.date + " "+message.strMessage+ " "+ message.user);				
+					System.out.println(message.date + " "+message.strMessage+ " "+ message.user);				
 					addToHashMap(message);
 				}
 			}
@@ -69,26 +69,30 @@ public class DataReaderTXT extends DataReader {
 
 	private static Message setMessage(String line, String date) {
 		Message message = null;
-		String pattern = "\\[(.+)]\\s\\[(..)\\s([0-9]+):([0-9]+)\\]\\s(.+)";
-		Pattern r = Pattern.compile(pattern);
-		Matcher m = r.matcher(line);
-		if(m.find()){
-			String user = m.group(1);
-			String time = changeAmPm(m.group(2), m.group(3), m.group(4));
+		String pattern2 = "\\[(.+)]\\s\\[(..)\\s([0-9]+):([0-9]+)\\]\\s(.+)";
+		Pattern r2 = Pattern.compile(pattern2);
+		Matcher m2 = r2.matcher(line);
+		if(m2.find()){
+			String user = m2.group(1);
+			String time = changeAmPm(m2.group(2), m2.group(3), m2.group(4));
 			String dateA = date + time;
-			String strMessage = m.group(5);
+			String strMessage = m2.group(5);
 			if(strMessage.equals("사진")) {
 				strMessage = "Photo";
 			}
-			message = new Message(dateA, user, strMessage);
+			strMessage = strMessage.replaceAll("\"", "");
+			message = new Message(dateA, user, strMessage);	
 		}
+		
 		return message;
 	}
 
 	private static String changeAmPm(String ap, String hour, String minute) {
 		String time = null;
-		if(ap.equals("오후")) {
+		if(ap.equals("오후")&&!hour.equals("12")) {
 			hour =  String.valueOf(Integer.parseInt(hour)+12);
+			time = hour+":"+minute;
+		}if(ap.equals("오후")&&hour.equals("12")) {
 			time = hour+":"+minute;
 		}if(ap.equals("오전")&&hour.equals("12")) {
 			hour =  "00";

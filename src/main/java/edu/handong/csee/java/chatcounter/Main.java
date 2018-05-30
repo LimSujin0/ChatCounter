@@ -34,6 +34,8 @@ public class Main {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		String inputpath = args[1];
+		String outputpath = args[3];
 		Options options = createOptions();
 		 if(parseOptions(options, args)) {
 			 if(help) {
@@ -44,9 +46,8 @@ public class Main {
 		
 		HashMap<String, ArrayList<Message>> messages = new  HashMap<String, ArrayList<Message>>();
 		ArrayList<String> result = new ArrayList<String>();
-		String filepath = "C:\\Users\\imsuj\\Desktop\\java\\chat-java";	
 		DataReader DR = new DataReader();
-		messages = DR.getData(filepath);
+		messages = DR.getData(inputpath);
 		
 		MessageFilter MF = new MessageFilter(messages);
 		messages = MF.MessageFilt(messages);
@@ -55,9 +56,12 @@ public class Main {
 		result = MC.messageCountSort();
 		
 		WriteCSV WC = new WriteCSV();
-		WC.createCSV(result);
+		WC.createCSV(result, outputpath);
 		
 		System.out.println("finish!");
+//		for(Message m : messages.get("samer")) {
+//	        System.out.println(m.date+ m.user+m.strMessage);
+//	     }
 	}
 
 	private static boolean parseOptions(Options options, String[] args) {

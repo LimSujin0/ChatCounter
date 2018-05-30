@@ -5,13 +5,29 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-
+/**
+ * This is public class named MessageCounter
+ * @author imsuj
+ *
+ */
 public class MessageCounter {
 	static HashMap<String, ArrayList<Message>> messages = new  HashMap<String, ArrayList<Message>>();
+	/**
+	 * This is a constructor that has HashMap<String, ArrayList<Message>> parameter
+	 * this constructor set MessageCounter.messages to parameter.
+	 * @param messages
+	 */
 	public MessageCounter(HashMap<String, ArrayList<Message>> messages) {
 		MessageCounter.messages = messages;
 	}
-	
+	/**
+	 * This is a public method named messageCountSort
+	 * this method has all methods in this class
+	 * this method count message along keys
+	 * and sort the message in descending order along the count number
+	 * return sorterResult ArrayList<String>
+	 * @return
+	 */
 	public ArrayList<String> messageCountSort(){
 		HashMap<String, Integer> result = messageCount(messages);
 		ArrayList<String> sortedResult = messageSort(result);
