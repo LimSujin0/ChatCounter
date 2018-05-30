@@ -6,14 +6,20 @@ import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+/**
+ * This is a public class named WriteCSV 
+ * this class has createCSV method that write some data in CSV format
+ * @author imsuj
+ *
+ */
 public class WriteCSV{
-	public void createCSV(ArrayList<String> result){
-		
+	/**
+	 * this is a public method named createCSV that has ArrayList<String> parameter 
+	 *  this method writes some data in CSV format
+	 * @param result
+	 */
+	public void createCSV(ArrayList<String> result){	
 		try{
-			//PrintWriter pw = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
-			//CSVWriter cw = new CSVWriter(new FileWriterWithEncoding(fileName,"euc-kr"),  ',');
-			//BufferedWriter fw = new BufferedWriter(new FileWriter("C:\\Users\\imsuj\\Desktop\\out.csv", true));
 			FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\imsuj\\Desktop\\out.csv");
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "MS949");
 			BufferedWriter fw = new BufferedWriter(outputStreamWriter);

@@ -8,9 +8,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * This is a public class named DataReaderTXT that extends Data Reader
+ * it reads all TXT files
+ * @author imsuj
+ *
+ */
 public class DataReaderTXT extends DataReader {
 	enum Months{Jenuary, Febuary, March, April, May, June, July, August, September, October,  November, December};
+	/**this is a public method named getMEssagesFromTXTFiles
+	 * this method find some pattern
+	 * and generate messages from one line to message, user, date along the pattern
+	 * @param file
+	 */
 	public static void getMessagesFromTXTFiles(File file){
 		String thisLine = null;
 		String date = null;
@@ -44,7 +54,7 @@ public class DataReaderTXT extends DataReader {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private static void addToHashMap(Message message) {
 		String user = message.getID();
 		if(!messages.containsKey(user)){

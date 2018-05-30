@@ -2,14 +2,30 @@ package edu.handong.csee.java.chatcounter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * This is a public class named MessageFilter
+ * this class has MessageFilt method that filter same message.
+ * @author imsuj
+ *
+ */
 public class MessageFilter{
 	static HashMap<String, ArrayList<Message>> messages = null;
-	
+	/**
+	 * this is a public constructor of this class that has HashMap<String, ArrayList<Message>> parameter
+	 * this parameter set MessageFilter.messages to parameter
+	 * @param messages
+	 */
 	public MessageFilter(HashMap<String, ArrayList<Message>> messages) {
 		MessageFilter.messages = messages;
 	}
-
+	/**
+	 * this is a public method named MessageFilt that has HashMap<String, ArrayList<Message>> paratmeter
+	 * this method compare the time and message of key's data
+	 * and if there is a same data, remove that data.
+	 * after that return HashMap<String, ArrayList<Message>
+	 * @param messages
+	 * @return
+	 */
 	public HashMap<String, ArrayList<Message>> MessageFilt(HashMap<String, ArrayList<Message>> messages) {
 		for(String keyID : messages.keySet()) {
 			for (int i = 0; i < messages.get(keyID).size()-1; i++) {
