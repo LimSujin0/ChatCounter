@@ -34,21 +34,21 @@ public class Main {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		String inputpath = args[1];
-		String outputpath = args[3];
-		Options options = createOptions();
-		if(parseOptions(options, args)) {
-			help = false;
-			if(help) {
-				printHelp(options);
-				return;
-			}
-		}
+//		String inputpath = args[1];
+//		String outputpath = args[3];
+//		Options options = createOptions();
+//		if(parseOptions(options, args)) {
+//			help = false;
+//			if(help) {
+//				printHelp(options);
+//				return;
+//			}
+//		}
 
 		HashMap<String, ArrayList<Message>> messages = new  HashMap<String, ArrayList<Message>>();
 		ArrayList<String> result = new ArrayList<String>();
 		DataReader DR = new DataReader();
-		messages = DR.getData(inputpath);
+		messages = DR.getData("C:\\Users\\imsuj\\Desktop\\java\\chat-java");
 
 		MessageFilter MF = new MessageFilter(messages);
 		messages = MF.MessageFilt(messages);
@@ -57,7 +57,7 @@ public class Main {
 		result = MC.messageCountSort();
 
 		WriteCSV WC = new WriteCSV();
-		WC.createCSV(result, outputpath);
+		WC.createCSV(result, "C:\\Users\\imsuj\\Desktop");
 
 		System.out.println("finish!");
 		//		for(Message m : messages.get("samer")) {

@@ -14,13 +14,21 @@ import java.util.Arrays;
  * @author imsuj
  *
  */
-public class DataReaderCSV extends DataReader{
+public class DataReaderCSV extends DataReader implements Runnable{
 	/**
 	 * this is a public class named getMessagesFromCSVFiles that has File parameter
 	 * this method reads all file lines
 	 * generate new data in Message format, and add to HashMap
 	 * @param file
 	 */
+	File file;
+	public DataReaderCSV(File file) {
+		this.file = file;
+	}
+	public void run() {
+		getMessagesFromCSVFiles(file);
+	}
+	
 	public static void getMessagesFromCSVFiles(File file){
 		Message message = null;
 		BufferedReader br = null;

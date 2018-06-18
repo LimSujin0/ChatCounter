@@ -46,7 +46,6 @@ public class MessageCounter {
 			//System.out.println(line);
 			result.remove(name);
 		}
-		System.out.println("\n\n");
 		return sortedResult;
 	}
 

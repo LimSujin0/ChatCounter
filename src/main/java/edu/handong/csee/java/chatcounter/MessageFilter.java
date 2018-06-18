@@ -43,10 +43,8 @@ public class MessageFilter{
 	private boolean compareTime(Message message1, Message message2) {
 		String date1 = message1.date;
 		String date2 = message2.date;
-		//System.out.println(date1+" "+ date2);
 		if(date1.length()>16 && date2.length()>16){//these date has hours, minutes and seconds
 			if(date1.equals(date2)) {
-				//System.out.println(date1+" "+ date2);
 				return compareMessage(message1, message2);
 			}
 		}else{

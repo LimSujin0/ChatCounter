@@ -4,6 +4,8 @@ package edu.handong.csee.java.chatcounter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import edu.handong.csee.java.chatcounter.DataReaderCSV;
 import edu.handong.csee.java.chatcounter.DataReaderTXT;
 /**
@@ -13,7 +15,7 @@ import edu.handong.csee.java.chatcounter.DataReaderTXT;
  * @author imsuj
  *
  */
-public class DataReader {
+public class DataReader{
 	static HashMap<String, ArrayList<Message>> messages = new HashMap<String, ArrayList<Message>>();
 	/**
 	 * This is a public method named getData that get String parameter as file path
@@ -23,15 +25,17 @@ public class DataReader {
 	 * @param strDir
 	 * @return
 	 */
+
 	public HashMap<String, ArrayList<Message>> getData(String strDir){
 		File myDir = getDirectory(strDir);
 		File[] files = getListOfFiles(myDir);
 		readFiles(files);
+
 		return messages;
 	}
 
 	private static File getDirectory(String fDir) {//get Directory and return File
-		File myDirectory = new File(fDir);
+		File myDirectory = new File("C:\\Users\\imsuj\\Desktop\\java\\chat-java");
 		return myDirectory;
 	}
 
@@ -45,15 +49,31 @@ public class DataReader {
 	 * and read all data from these files
 	 * generate new data in form of HashMap<String, ArrayList<Message>>
 	 */
-	public void readFiles(File[] files){//get String arraylist of the file	
-		File file = null;
-		for (int i = 0; i < files.length-1; i++){
-			file = files[i];
-			System.out.println("\nRead a file : " + file.getName());
-			if(file.getName().endsWith(".csv"))
-				DataReaderCSV.getMessagesFromCSVFiles(file);
-			else
-				DataReaderTXT.getMessagesFromTXTFiles(file);
-		}	
+	public void readFiles(File[] files){//get String arraylist of the file			
+		int numOfCoresInMyCPU = Runtime.getRuntime().availableProcessors();
+		System.out.println("the number of corse of my system: " + numOfCoresInMyCPU);
+		ExecutorService executor = Executors.newFixedThreadPool(numOfCoresInMyCPU);
+		for (int i=0; i<files.length; i++ ){
+			if(!files[i].getName().endsWith(".csv") && !files[i].getName().endsWith(".txt")){
+				continue;
+			}	
+			System.out.println("Read a file : " + files[i].getName());
+			if(files[i].getName().endsWith(".csv")) {
+				Runnable worker = new Thread(new DataReaderCSV(files[i]));
+				executor.execute(worker);
+			}
+			if(files[i].getName().endsWith(".txt")) {
+				Runnable worker = new Thread(new DataReaderTXT(files[i]));
+				executor.execute(worker);
+			}	
+		}
+		executor.shutdown();
+		while(!executor.isTerminated()) {
+			
+		}
+		
+	
 	}
-}	
+
+
+}
