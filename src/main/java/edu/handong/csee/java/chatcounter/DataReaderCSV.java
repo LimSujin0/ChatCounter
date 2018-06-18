@@ -7,20 +7,27 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 /**
  * this is a public class named DataReaderCSV that extends DataReader
  * it reads all TXT files 
  * @author imsuj
  *
  */
-public class DataReaderCSV extends DataReader{
+public class DataReaderCSV extends DataReader implements Runnable{
 	/**
 	 * this is a public class named getMessagesFromCSVFiles that has File parameter
 	 * this method reads all file lines
 	 * generate new data in Message format, and add to HashMap
 	 * @param file
 	 */
+	File file;
+	public DataReaderCSV(File file) {
+		this.file = file;
+	}
+	public void run() {
+		getMessagesFromCSVFiles(file);
+	}
+	
 	public static void getMessagesFromCSVFiles(File file){
 		Message message = null;
 		BufferedReader br = null;

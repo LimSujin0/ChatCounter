@@ -24,6 +24,7 @@ public class Main {
 	static String inputPath;
 	static String outputPath;
 	static boolean help;
+	static String numberOfThread;
 	/**This is a public method named main
 	 * this program start this point. this method has all the method in this pakcage.
 	 * read all file list
@@ -34,8 +35,6 @@ public class Main {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		String inputpath = args[1];
-		String outputpath = args[3];
 		Options options = createOptions();
 		if(parseOptions(options, args)) {
 			help = false;
@@ -48,7 +47,7 @@ public class Main {
 		HashMap<String, ArrayList<Message>> messages = new  HashMap<String, ArrayList<Message>>();
 		ArrayList<String> result = new ArrayList<String>();
 		DataReader DR = new DataReader();
-		messages = DR.getData(inputpath);
+		messages = DR.getData(inputPath, numberOfThread);
 
 		MessageFilter MF = new MessageFilter(messages);
 		messages = MF.MessageFilt(messages);
@@ -57,7 +56,7 @@ public class Main {
 		result = MC.messageCountSort();
 
 		WriteCSV WC = new WriteCSV();
-		WC.createCSV(result, outputpath);
+		WC.createCSV(result, outputPath);
 
 		System.out.println("finish!");
 		//		for(Message m : messages.get("samer")) {
@@ -71,6 +70,7 @@ public class Main {
 			CommandLine cmd = parser.parse(options, args);
 
 			inputPath = cmd.getOptionValue("i");
+			numberOfThread = cmd.getOptionValue("c");
 			outputPath = cmd.getOptionValue("o");
 			help = cmd.hasOption("h");
 		}catch(Exception e) {
@@ -94,6 +94,12 @@ public class Main {
 				.desc("Set a path of directory that contain that data files.")
 				.hasArg()
 				.argName("A directory path")
+				.required()
+				.build());
+		options.addOption(Option.builder("c").longOpt("numberOfThread")
+				.desc("Set a number of thread.")
+				.hasArg()
+				.argName("A number of thread")
 				.required()
 				.build());
 		options.addOption(Option.builder("o").longOpt("output")

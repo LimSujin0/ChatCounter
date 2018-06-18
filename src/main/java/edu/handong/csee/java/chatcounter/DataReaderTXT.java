@@ -14,13 +14,21 @@ import java.util.regex.Pattern;
  * @author imsuj
  *
  */
-public class DataReaderTXT extends DataReader {
+public class DataReaderTXT extends DataReader implements Runnable {
 	enum Months{Jenuary, Febuary, March, April, May, June, July, August, September, October,  November, December};
 	/**this is a public method named getMEssagesFromTXTFiles
 	 * this method find some pattern
 	 * and generate messages from one line to message, user, date along the pattern
 	 * @param file
 	 */
+	File file;
+	public DataReaderTXT(File file) {
+		this.file = file;
+	}
+	public void run() {
+		getMessagesFromTXTFiles(file);
+	}
+	
 	public static void getMessagesFromTXTFiles(File file){
 		String thisLine = null;
 		String date = null;
@@ -41,11 +49,9 @@ public class DataReaderTXT extends DataReader {
 				Matcher m2 = r2.matcher(thisLine);
 
 				if(m.find()||m1.find()){
-					System.out.println(thisLine);
 					date = setDate(message, thisLine);
 				}if(m2.find()){
-					message = setMessage(thisLine, date);
-					System.out.println(message.date + " "+message.strMessage+ " "+ message.user);				
+					message = setMessage(thisLine, date);				
 					addToHashMap(message);
 				}
 			}
