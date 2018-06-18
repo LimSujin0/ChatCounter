@@ -20,7 +20,7 @@ public class WriteCSV{
 	 */
 	public void createCSV(ArrayList<String> result, String output){	
 		try{
-			FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\imsuj\\Desktop\\out.csv");
+			FileOutputStream fileOutputStream = new FileOutputStream(output);
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "MS949");
 			BufferedWriter fw = new BufferedWriter(outputStreamWriter);
 			for(String line : result){
