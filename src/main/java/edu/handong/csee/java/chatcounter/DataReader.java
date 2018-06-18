@@ -26,16 +26,15 @@ public class DataReader{
 	 * @return
 	 */
 
-	public HashMap<String, ArrayList<Message>> getData(String strDir){
+	public HashMap<String, ArrayList<Message>> getData(String strDir, String numberOfThread){
 		File myDir = getDirectory(strDir);
 		File[] files = getListOfFiles(myDir);
-		readFiles(files);
-
+		readFiles(files, Integer.parseInt(numberOfThread));
 		return messages;
 	}
 
 	private static File getDirectory(String fDir) {//get Directory and return File
-		File myDirectory = new File("C:\\Users\\imsuj\\Desktop\\java\\chat-java");
+		File myDirectory = new File(fDir);
 		return myDirectory;
 	}
 
@@ -49,10 +48,9 @@ public class DataReader{
 	 * and read all data from these files
 	 * generate new data in form of HashMap<String, ArrayList<Message>>
 	 */
-	public void readFiles(File[] files){//get String arraylist of the file			
-		int numOfCoresInMyCPU = Runtime.getRuntime().availableProcessors();
-		System.out.println("the number of corse of my system: " + numOfCoresInMyCPU);
-		ExecutorService executor = Executors.newFixedThreadPool(numOfCoresInMyCPU);
+	public void readFiles(File[] files, int numberOfThread){//get String arraylist of the file
+		System.out.println("number of thrads: " + numberOfThread);
+		ExecutorService executor = Executors.newFixedThreadPool(numberOfThread);
 		for (int i=0; i<files.length; i++ ){
 			if(!files[i].getName().endsWith(".csv") && !files[i].getName().endsWith(".txt")){
 				continue;
